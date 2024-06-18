@@ -15,7 +15,6 @@ const DogsContainer = () => {
     const [favorites, setFavorites] = useState([]);
     const [match, setMatch] = useState();
     const [open, setOpen] = useState(false);
-    const [zipParam, setZipParam] = useState([]);
 
     const navigate = useNavigate();
 
@@ -36,7 +35,7 @@ const DogsContainer = () => {
         getBreeds()
     }, []);
 
-    const getDogsSearch = (formData) => {
+    const getDogsSearch = (formData, city) => {
         fetch("https://frontend-take-home-service.fetch.com/locations/search", {
             method: 'POST',
             credentials: "include",
@@ -44,36 +43,36 @@ const DogsContainer = () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                city: formData.city
+                city: city,
+                size: 100
             }),
         })
         .then((response) => response.json())
         .then(data => {
-            let zips = ''
-            data.results.map((d) => zips = zips + `zipCodes[]=${d.zip_code}&`)
-            setZipParam(zips)
-        })        
-        let breedParam = ''
-        for (let i=0; i < formData.breeds.length; i++){
-            breedParam = breedParam + `breeds[]=${formData.breeds[i]}&`
-        }
-        fetch(`https://frontend-take-home-service.fetch.com/dogs/search?${breedParam}&${zipParam}&sort=${formData.sort}&ageMin=${formData.ageMin}&ageMax=${formData.ageMax}&size=${formData.size}`, {
-            credentials: "include"
+            let zipParam = ''
+            data.results.map((d) => zipParam += `zipCodes[]=${d.zip_code}&`)  
+            let breedParam = ''
+            for (let i=0; i < formData.breeds.length; i++){
+                    breedParam = breedParam + `breeds[]=${formData.breeds[i]}&`
+            }
+            fetch(`https://frontend-take-home-service.fetch.com/dogs/search?${breedParam}&${zipParam}&sort=${formData.sort}&ageMin=${formData.ageMin}&ageMax=${formData.ageMax}&size=${formData.size}`, {
+                credentials: "include"
+            })
+            .then(response => {
+                if (!response.ok) { throw new Error('Network response was not ok');}
+                return response.json();
+            })
+            .then(data => {
+                let results = data.resultIds.slice(0,100)
+                postDogs(results)
+                setResultsPages(Math.ceil(results.length/25))
+                setFavorites([])
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });    
         })
-        .then(response => {
-            if (!response.ok) { throw new Error('Network response was not ok');}
-            return response.json();
-        })
-        .then(data => {
-            let results = data.resultIds.slice(0,100)
-            postDogs(results)
-            setResultsPages(Math.ceil(results.length/25))
-            setFavorites([])
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    };
+    }
 
     const postDogs = (resultIds) => {
         fetch("https://frontend-take-home-service.fetch.com/dogs", {

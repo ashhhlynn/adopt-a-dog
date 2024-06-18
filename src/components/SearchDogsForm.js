@@ -18,6 +18,15 @@ const SearchDogsForm = (props) => {
         value: i
     }));
 
+    const getSearchParams = () => {
+        if (formData.city === "") {
+            props.getDogsSearch(formData, '0')
+        }
+        else {
+            props.getDogsSearch(formData, formData.city)
+        }
+    }
+
     return (
         <Form style={{width:"90%"}}>
             <FormGroup inline widths='equal'>
@@ -38,7 +47,7 @@ const SearchDogsForm = (props) => {
                 <FormRadio checked={formData.sort === 'name:desc'} onChange={() => setFormData({...formData, sort: 'name:desc'})}label='Name (Desc.)' />
                 <FormRadio checked={formData.sort === 'age:asc'} onChange={() => setFormData({...formData, sort: 'age:asc'})} label='Age (Asc.)' />
                 <FormRadio checked={formData.sort === 'age:desc'} onChange={() => setFormData({...formData, sort: 'age:desc'})}label='Age (Desc.)' />
-                <Button size='small' color='teal' circular onClick={() => props.getDogsSearch(formData)}>Apply</Button>
+                <Button size='small' color='teal' circular onClick={() => getSearchParams()}>Apply</Button>
             </FormGroup>
         </Form>
     );
