@@ -19,12 +19,8 @@ const SearchDogsForm = (props) => {
     }));
 
     const getSearchParams = () => {
-        if (formData.city === "") {
-            props.getDogsSearch(formData, '0')
-        }
-        else {
-            props.getDogsSearch(formData, formData.city)
-        }
+        if (formData.city === "") {props.getDogsSearch(formData, '0')}
+        else {props.getDogsSearch(formData, formData.city)}
     }
 
     return (

@@ -52,9 +52,7 @@ const DogsContainer = () => {
             let zipParam = ''
             data.results.map((d) => zipParam += `zipCodes[]=${d.zip_code}&`)  
             let breedParam = ''
-            for (let i=0; i < formData.breeds.length; i++){
-                    breedParam = breedParam + `breeds[]=${formData.breeds[i]}&`
-            }
+            formData.breeds.map((b) => breedParam += `breeds[]=${b}&`)
             fetch(`https://frontend-take-home-service.fetch.com/dogs/search?${breedParam}&${zipParam}&sort=${formData.sort}&ageMin=${formData.ageMin}&ageMax=${formData.ageMax}&size=${formData.size}`, {
                 credentials: "include"
             })
