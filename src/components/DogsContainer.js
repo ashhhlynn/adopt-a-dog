@@ -13,7 +13,7 @@ const DogsContainer = () => {
     const [breedsAll, setBreedsAll] = useState([]);
     const [resultsPages, setResultsPages] = useState(1);
     const [favorites, setFavorites] = useState([]);
-    const [match, setMatch] = useState(0);
+    const [match, setMatch] = useState();
     const [open, setOpen] = useState(false);
 
     const navigate = useNavigate();
@@ -25,8 +25,8 @@ const DogsContainer = () => {
         .then((response) => response.json())
         .then(data => {
             postDogs(data.resultIds)
-            getBreeds()
         })
+        getBreeds()
     }, []);
 
     const getDogsSearch = (formData) => {
@@ -130,7 +130,7 @@ const DogsContainer = () => {
             <br></br>
             <center>
                 <Segment style={{width:"50%"}}>
-                    <Header as='h4' style={{marginTop:"2.5%"}}>Heart your favorite dogs to find your match! </Header>
+                    <Header as='h4' style={{marginTop:"2.5%"}}>Heart your favorite dogs to find your match!</Header>
                     <Modal
                         onClose={() => setOpen(false)}
                         onOpen={postMatch}
@@ -155,8 +155,8 @@ const DogsContainer = () => {
                 lastItem={null}
                 prevItem={null}
                 nextItem={null}
-                siblingRange={1}
                 activePage={activePage}
+                siblingRange={1}
                 totalPages={resultsPages}
                 onPageChange={(e)=>handlePaginationChange(e)}
             />

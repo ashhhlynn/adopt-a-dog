@@ -8,9 +8,9 @@ const MatchDog = (props) => {
         <ModalContent>
             <center>
                 <Header as='h2' style={{color:"#009c95"}}>{props.match.name}</Header>
-                <Image src={props.match.img} size='small'  />
+                <Image src={props.match.img} size='small' />
                 <br></br>
-                Age: {props.match.age} <br></br>
+                Age: {props.match.age}<br></br>
                 Breed: {props.match.breed}<br></br>
                 Zip Code: {props.match.zip_code}
             </center>

@@ -7,7 +7,7 @@ const Favorite = (props) => {
 
     const handleAddToFavorites = () => {
         setActive(!active)
-        active === false ? props.addToFavorites(props.i.id):  props.removeFromFavorites(props.i.id)      
+        active === false ? props.addToFavorites(props.i.id) : props.removeFromFavorites(props.i.id)      
     };
 
     return (
