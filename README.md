@@ -16,4 +16,4 @@
 
    ## Acknowledgements
   - Created by Ashley
-  - MIT licensed
+  - Distributed under the MIT License
