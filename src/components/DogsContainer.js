@@ -156,7 +156,7 @@ const DogsContainer = () => {
                 prevItem={null}
                 nextItem={null}
                 activePage={activePage}
-                siblingRange={1}
+                siblingRange={2}
                 totalPages={resultsPages}
                 onPageChange={(e)=>handlePaginationChange(e)}
             />
