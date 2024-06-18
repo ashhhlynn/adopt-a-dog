@@ -19,19 +19,15 @@ const DogsContainer = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        getDogsSearchAuto()
-        getBreeds()
-    }, []);
-
-    const getDogsSearchAuto = () => {
         fetch("https://frontend-take-home-service.fetch.com/dogs/search?sort=breed:asc", {
             credentials: "include"
         })
         .then((response) => response.json())
         .then(data => {
             postDogs(data.resultIds)
+            getBreeds()
         })
-    };
+    }, []);
 
     const getDogsSearch = (formData) => {
         let breedParam = ''
