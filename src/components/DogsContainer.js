@@ -22,10 +22,16 @@ const DogsContainer = () => {
         fetch("https://frontend-take-home-service.fetch.com/dogs/search?sort=breed:asc", {
             credentials: "include"
         })
-        .then((response) => response.json())
+        .then(response => {
+            if (!response.ok) { throw new Error('Network response was not ok');}
+            return response.json();
+        })
         .then(data => {
             postDogs(data.resultIds)
         })
+        .catch(error => {
+            console.error('Error:', error);
+        });
         getBreeds()
     }, []);
 
@@ -37,13 +43,19 @@ const DogsContainer = () => {
         fetch(`https://frontend-take-home-service.fetch.com/dogs/search?${breedParam}&sort=${formData.sort}&ageMin=${formData.ageMin}&ageMax=${formData.ageMax}&size=${formData.size}`, {
             credentials: "include"
         })
-        .then((response) => response.json())
+        .then(response => {
+            if (!response.ok) { throw new Error('Network response was not ok');}
+            return response.json();
+        })
         .then(data => {
             let results = data.resultIds.slice(0,100)
             postDogs(results)
             setResultsPages(Math.ceil(results.length/25))
             setFavorites([])
         })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     };
 
     const postDogs = (resultIds) => {
@@ -57,22 +69,34 @@ const DogsContainer = () => {
                 resultIds
             ),
         })
-        .then((response) => response.json())
+        .then(response => {
+            if (!response.ok) { throw new Error('Network response was not ok');}
+            return response.json();
+        })
         .then(data => {
             setDogs(data.slice(0,25))
             setDogsAll(data)
             setActivePage(1)
         })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     };
     
     const getBreeds = () => {
         fetch("https://frontend-take-home-service.fetch.com/dogs/breeds", {
             credentials: "include"
         })
-        .then((response) => response.json())
+        .then(response => {
+            if (!response.ok) { throw new Error('Network response was not ok');}
+            return response.json();
+        })
         .then(data => {
             setBreedsAll(data)
         })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     };
 
     const addToFavorites = (id) => {
@@ -98,30 +122,40 @@ const DogsContainer = () => {
             credentials: "include",
             headers: {
                 'Content-Type': 'application/json',
-                Accept: 'application/json',
             },
             body: JSON.stringify(
                 favorites
             ),
         })
-        .then((response) => response.json())
+        .then(response => {
+            if (!response.ok) { throw new Error('Network response was not ok');}
+            return response.json();
+        })
         .then(data => {
             let dogMatch = dogsAll.find(x => x.id === data.match)
             setMatch(dogMatch)
             setOpen(true)
         })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
 
     const postLogout = () => {
         fetch("https://frontend-take-home-service.fetch.com/auth/logout", {
-          method: 'POST',
-          credentials: "include",
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
+            method: 'POST',
+            credentials: "include",
+            headers: {
+                'Content-Type': 'application/json',
+            },
         })
-        .then((response) => response.json())
+        .then(response => {
+            if (!response.ok) { throw new Error('Network response was not ok');}
+            return response.json();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
         navigate('/')
     }
 

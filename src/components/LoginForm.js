@@ -12,14 +12,11 @@ const LoginForm = () => {
   const navigate = useNavigate();
 
   const postLogin = () => {
-    const token = localStorage.token;
     fetch("https://frontend-take-home-service.fetch.com/auth/login", {
       method: 'POST',
       credentials: "include",
       headers: {
         'Content-Type': 'application/json',
-        Accept: 'application/json',
-        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({
         name: loginData.name,
@@ -27,7 +24,10 @@ const LoginForm = () => {
       }),
     })
     .then((response) => response.json())
-    navigate('/adopt')
+    .catch(error => {
+      console.error('Error:', error);
+      navigate('/adopt')
+    });
   };
 
   return (
