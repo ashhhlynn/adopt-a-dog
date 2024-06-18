@@ -15,6 +15,7 @@ const DogsContainer = () => {
     const [favorites, setFavorites] = useState([]);
     const [match, setMatch] = useState();
     const [open, setOpen] = useState(false);
+    const [zipParam, setZipParam] = useState([]);
 
     const navigate = useNavigate();
 
@@ -36,11 +37,27 @@ const DogsContainer = () => {
     }, []);
 
     const getDogsSearch = (formData) => {
+        fetch("https://frontend-take-home-service.fetch.com/locations/search", {
+            method: 'POST',
+            credentials: "include",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                city: formData.city
+            }),
+        })
+        .then((response) => response.json())
+        .then(data => {
+            let zips = ''
+            data.results.map((d) => zips = zips + `zipCodes[]=${d.zip_code}&`)
+            setZipParam(zips)
+        })        
         let breedParam = ''
         for (let i=0; i < formData.breeds.length; i++){
             breedParam = breedParam + `breeds[]=${formData.breeds[i]}&`
         }
-        fetch(`https://frontend-take-home-service.fetch.com/dogs/search?${breedParam}&sort=${formData.sort}&ageMin=${formData.ageMin}&ageMax=${formData.ageMax}&size=${formData.size}`, {
+        fetch(`https://frontend-take-home-service.fetch.com/dogs/search?${breedParam}&${zipParam}&sort=${formData.sort}&ageMin=${formData.ageMin}&ageMax=${formData.ageMax}&size=${formData.size}`, {
             credentials: "include"
         })
         .then(response => {

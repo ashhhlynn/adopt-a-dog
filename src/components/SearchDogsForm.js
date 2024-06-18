@@ -8,7 +8,8 @@ const SearchDogsForm = (props) => {
         ageMax: "", 
         size: "", 
         sort: "breed:asc",
-        breeds: []
+        breeds: [],
+        city: ""
     });
 
     const breedsGroup = props.breedsAll.map((i, index) => ({
@@ -26,7 +27,8 @@ const SearchDogsForm = (props) => {
                 </FormField>
                 <FormInput onChange={(e) => setFormData({...formData, ageMin: e.target.value})} fluid placeholder='Age Min.' />
                 <FormInput onChange={(e) => setFormData({...formData, ageMax: e.target.value})} fluid placeholder='Age Max.' />
-                <FormInput onChange={(e) => setFormData({...formData, size: e.target.value})} fluid placeholder='Size (Default 25)' />
+                <FormInput onChange={(e) => setFormData({...formData, city: e.target.value})} fluid placeholder='City' />
+                <FormInput onChange={(e) => setFormData({...formData, size: e.target.value})} fluid placeholder='# Results (Default 25)' />
             </FormGroup>
             <FormGroup inline>
                 <label>Sort</label>

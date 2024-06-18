@@ -2,16 +2,16 @@
 
 ## Installation
    ```sh
-   git clone https://github.com/ashhhlyn/adopt-a-dog.git
+   $ git clone https://github.com/ashhhlyn/adopt-a-dog.git
    ```
    ```sh
-   cd adopt-a-dog
+   $ cd adopt-a-dog
    ```
    ```sh
-   npm install
+   $ npm install
    ```
    ```sh
-   npm start
+   $ npm start
    ```
 
    ## Acknowledgements

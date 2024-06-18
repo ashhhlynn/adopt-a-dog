@@ -33,7 +33,7 @@ const LoginForm = () => {
   return (
     <div>
       <br></br><br></br>
-      <Form style={{margin:"auto", width:"500px"}}> 
+      <Form size="large" style={{margin:"auto", width:"50%"}}> 
         <Header as='h3'>Login</Header>
           <FormInput onChange={(e) => setLoginData({...loginData, name: e.target.value})} placeholder='Name' />
           <FormInput onChange={(e) => setLoginData({...loginData, email: e.target.value})} placeholder='Email' />
