@@ -13,7 +13,3 @@
    ```sh
    $ npm start
    ```
-
-   ## Acknowledgements
-  - Created by Ashley
-  - Distributed under the MIT License
